@@ -1,10 +1,11 @@
 import { prisma } from "../../prismaClient.js";
 import {
-  isValidImageDataUrl,
+  isValidImageUrl,
   isNonEmptyString,
   isValidYear,
   parseInteger,
 } from "../../utils/validation.js";
+import { uploadVehicleImage } from "../../utils/blobStorage.js";
 
 export const addVehicle = async (req, res) => {
   try {
@@ -26,7 +27,7 @@ export const addVehicle = async (req, res) => {
       return res.status(400).json({ message: "Godina guma nije validna" });
     }
 
-    if (!isValidImageDataUrl(imageUrl)) {
+    if (!isValidImageUrl(imageUrl)) {
       return res.status(400).json({ message: "Slika vozila nije validna" });
     }
 
@@ -48,12 +49,14 @@ export const addVehicle = async (req, res) => {
         message: "Free plan allows only 1 vehicle. Upgrade to add more.",
     });
     }
+    const uploadedImageUrl = await uploadVehicleImage(imageUrl, userId);
+
     const vehicle = await prisma.vehicle.create({
       data: {
         name: name.trim(),
         year: parsedYear,
         tireYear: parsedTireYear,
-        imageUrl: imageUrl || null,
+        imageUrl: uploadedImageUrl,
         userId,
       },
     });
@@ -104,7 +107,7 @@ export const updateVehicle = async (req, res) => {
       return res.status(400).json({ message: "Godina guma nije validna" });
     }
 
-    if (!isValidImageDataUrl(imageUrl)) {
+    if (!isValidImageUrl(imageUrl)) {
       return res.status(400).json({ message: "Slika vozila nije validna" });
     }
 
@@ -119,13 +122,15 @@ export const updateVehicle = async (req, res) => {
       return res.status(404).json({ message: "Vozilo nije pronađeno" });
     }
 
+    const uploadedImageUrl = await uploadVehicleImage(imageUrl, userId);
+
     const updatedVehicle = await prisma.vehicle.update({
       where: { id: parsedVehicleId },
       data: {
         name: name.trim(),
         year: parsedYear,
         tireYear: parsedTireYear,
-        imageUrl: imageUrl || null,
+        imageUrl: uploadedImageUrl,
       },
     });
 

@@ -46,3 +46,15 @@ export const isValidImageDataUrl = (value) => {
 
   return allowedPrefix.test(value) && value.length <= maxBytes;
 };
+
+export const isValidImageUrl = (value) => {
+  if (isValidImageDataUrl(value)) return true;
+  if (typeof value !== "string") return false;
+
+  try {
+    const url = new URL(value);
+    return ["http:", "https:"].includes(url.protocol);
+  } catch {
+    return false;
+  }
+};
