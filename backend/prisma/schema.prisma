@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ServiceType {
+  MALI
+  VELIKI
+  OVJES
+  MJENJAC
+  VOLAN
+  KOCNICE
+  ELEKTRONIKA
+  KLIMA
+  OSTALO
+  POLIRANJE
+  DUBINSKO
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  password String
+  plan     String    @default("free")
+  vehicles Vehicle[]
+
+  createdAt DateTime @default(now())
+}
+
+model Vehicle {
+  id       Int    @id @default(autoincrement())
+  name     String
+  year     Int
+  tireYear Int?
+  imageUrl String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  services  Service[]
+  reminders Reminder[]
+}
+
+model Service {
+  id    Int      @id @default(autoincrement())
+  type  String
+  price Float
+  date  DateTime @default(now())
+
+  vehicleId Int
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Reminder {
+  id        Int      @id @default(autoincrement())
+  type      String
+  dueDate   DateTime
+  completed Boolean  @default(false)
+
+  vehicleId Int
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+
+  createdAt DateTime @default(now())
+}
