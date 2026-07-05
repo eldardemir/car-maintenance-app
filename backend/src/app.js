@@ -15,6 +15,14 @@ const allowedOrigins = process.env.CORS_ORIGIN
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: "6mb" }));
 
+app.get("/", (req, res) => {
+  res.json({ status: "ok", service: "car-maintenance-api" });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/vehicles",vehicleRoutes);
