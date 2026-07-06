@@ -567,10 +567,10 @@ export default function Dashboard() {
   return (
     <main className="min-h-screen bg-[#f4f1eb] text-zinc-950">
       <div className="mx-auto flex min-h-screen max-w-[1500px] flex-col lg:flex-row">
-        <aside className="border-b border-zinc-200 bg-white/85 px-5 py-4 backdrop-blur lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:border-b-0 lg:border-r lg:px-6 lg:py-6">
+        <aside className="animate-fade-in border-b border-zinc-200 bg-white/85 px-5 py-4 backdrop-blur lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:border-b-0 lg:border-r lg:px-6 lg:py-6">
           <div className="flex items-center justify-between lg:block">
             <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-lg bg-zinc-950 text-lg font-black text-amber-300">
+              <div className="animate-soft-float grid h-11 w-11 place-items-center rounded-lg bg-zinc-950 text-lg font-black text-amber-300">
                 C
               </div>
               <div>
@@ -581,17 +581,17 @@ export default function Dashboard() {
 
             <button
               onClick={handleLogout}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm font-bold text-zinc-600 transition hover:bg-zinc-50 lg:mt-8 lg:w-full"
+              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm font-bold text-zinc-600 transition hover:-translate-y-0.5 hover:bg-zinc-50 active:translate-y-0 lg:mt-8 lg:w-full"
             >
               Logout
             </button>
           </div>
 
           <nav className="mt-6 hidden space-y-2 lg:block">
-            <button className="w-full rounded-lg bg-zinc-950 px-4 py-3 text-left text-sm font-bold text-white">
+            <button className="w-full rounded-lg bg-zinc-950 px-4 py-3 text-left text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md active:translate-y-0">
               Dashboard
             </button>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4">
+            <div className="animate-fade-up stagger-1 rounded-lg border border-zinc-200 bg-zinc-50 p-4">
               <p className="text-xs font-bold uppercase text-zinc-500">Garage</p>
               <p className="mt-2 text-2xl font-black">{vehicles.length}</p>
               <p className="text-sm text-zinc-500">tracked vehicles</p>
@@ -600,7 +600,7 @@ export default function Dashboard() {
         </aside>
 
         <section className="flex-1 px-5 py-6 sm:px-8 lg:px-10 lg:py-8">
-          <header className="mb-8 flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
+          <header className="animate-fade-up mb-8 flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-amber-700">
                 Maintenance overview
@@ -615,16 +615,19 @@ export default function Dashboard() {
 
             <button
               onClick={openAddVehicleModal}
-              className="rounded-lg bg-amber-400 px-5 py-3 text-sm font-black text-zinc-950 shadow-[0_12px_30px_rgba(245,158,11,0.28)] transition hover:bg-amber-300"
+              className="rounded-lg bg-amber-400 px-5 py-3 text-sm font-black text-zinc-950 shadow-[0_12px_30px_rgba(245,158,11,0.28)] transition hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[0_16px_36px_rgba(245,158,11,0.34)] active:translate-y-0"
             >
               Add Vehicle
             </button>
           </header>
 
           <section className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {stats.map((stat) => (
-              <article key={stat.label} className={`rounded-lg border p-5 shadow-sm ${stat.tone}`}>
-                <div className={`mb-5 h-1.5 w-12 rounded-full ${stat.accent}`} />
+            {stats.map((stat, index) => (
+              <article
+                key={stat.label}
+                className={`animate-fade-up rounded-lg border p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${stat.tone} stagger-${index + 1}`}
+              >
+                <div className={`animate-fill-bar mb-5 h-1.5 w-12 rounded-full ${stat.accent}`} />
                 <p className="text-sm font-semibold text-zinc-500">{stat.label}</p>
                 <p className="mt-2 text-3xl font-black tracking-tight">{stat.value}</p>
               </article>
@@ -632,7 +635,7 @@ export default function Dashboard() {
           </section>
 
           <section className="grid grid-cols-1 gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-            <article className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+            <article className="animate-fade-up stagger-1 rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
               <div className="mb-5 flex items-center justify-between gap-4">
                 <div>
                   <h3 className="text-xl font-black">Spending by date</h3>
@@ -666,19 +669,19 @@ export default function Dashboard() {
               </div>
             </article>
 
-            <article className="rounded-lg border border-zinc-200 bg-zinc-950 p-5 text-white shadow-sm">
+            <article className="animate-fade-up stagger-2 rounded-lg border border-zinc-200 bg-zinc-950 p-5 text-white shadow-sm">
               <p className="text-sm font-semibold text-amber-300">This month</p>
               <h3 className="mt-2 text-3xl font-black">{vehicles.length} vehicles tracked</h3>
               <div className="mt-7 grid grid-cols-3 gap-3">
-                <div className="rounded-lg bg-white/10 p-3">
+                <div className="rounded-lg bg-white/10 p-3 transition hover:-translate-y-0.5 hover:bg-white/[0.14]">
                   <p className="text-xs text-zinc-400">Services</p>
                   <p className="mt-1 text-2xl font-black">{services.length}</p>
                 </div>
-                <div className="rounded-lg bg-white/10 p-3">
+                <div className="rounded-lg bg-white/10 p-3 transition hover:-translate-y-0.5 hover:bg-white/[0.14]">
                   <p className="text-xs text-zinc-400">Reminders</p>
                   <p className="mt-1 text-2xl font-black">{reminders.length}</p>
                 </div>
-                <div className="rounded-lg bg-white/10 p-3">
+                <div className="rounded-lg bg-white/10 p-3 transition hover:-translate-y-0.5 hover:bg-white/[0.14]">
                   <p className="text-xs text-zinc-400">Plan</p>
                   <p className="mt-1 text-2xl font-black capitalize">{plan}</p>
                 </div>
@@ -686,7 +689,7 @@ export default function Dashboard() {
             </article>
           </section>
 
-          <section className="mt-8">
+          <section className="animate-fade-up stagger-2 mt-8">
             <div className="mb-4 flex items-center justify-between">
               <div>
                 <h3 className="text-2xl font-black">Vehicles</h3>
@@ -696,15 +699,15 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {vehicles.length === 0 && (
-                <div className="rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-zinc-500 lg:col-span-2">
+                <div className="animate-scale-in rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-zinc-500 lg:col-span-2">
                   Add your first vehicle to start tracking maintenance costs.
                 </div>
               )}
 
-              {vehicles.map((vehicle) => (
+              {vehicles.map((vehicle, index) => (
                 <article
                   key={vehicle.id}
-                  className={`rounded-lg border bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${
+                  className={`animate-scale-in rounded-lg border bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg stagger-${(index % 4) + 1} ${
                     selectedVehicle?.id === vehicle.id ? "border-zinc-950" : "border-zinc-200"
                   }`}
                 >
@@ -713,7 +716,7 @@ export default function Dashboard() {
                       <img
                         src={vehicle.imageUrl}
                         alt={vehicle.name}
-                        className="h-44 w-full object-cover"
+                        className="h-44 w-full object-cover transition duration-500 hover:scale-[1.03]"
                       />
                     ) : (
                       <div className="grid h-44 place-items-center bg-[linear-gradient(135deg,#18181b,#52525b)] text-sm font-bold text-amber-200">
@@ -742,7 +745,7 @@ export default function Dashboard() {
 
                   <button
                     onClick={() => loadServices(vehicle)}
-                    className="mt-5 w-full rounded-lg bg-zinc-950 px-4 py-3 text-sm font-bold text-white transition hover:bg-zinc-800"
+                    className="mt-5 w-full rounded-lg bg-zinc-950 px-4 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 active:translate-y-0"
                   >
                     {selectedVehicle?.id === vehicle.id ? "Opened" : "Open Vehicle"}
                   </button>
@@ -766,7 +769,7 @@ export default function Dashboard() {
           </section>
 
           {selectedVehicle && (
-            <section className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
+            <section className="animate-fade-up mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
               <article className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
                 <PanelHeader
                   title={selectedVehicle.name}
@@ -779,10 +782,10 @@ export default function Dashboard() {
                   <EmptyState text="No services added yet." />
                 ) : (
                   <div className="space-y-3">
-                    {services.map((service) => (
+                    {services.map((service, index) => (
                       <div
                         key={service.id}
-                        className="rounded-lg border border-zinc-200 bg-zinc-50 p-4"
+                        className={`animate-fade-up rounded-lg border border-zinc-200 bg-zinc-50 p-4 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-sm stagger-${(index % 4) + 1}`}
                       >
                         <div className="flex items-center justify-between gap-4">
                           <div>
@@ -825,13 +828,13 @@ export default function Dashboard() {
                   <EmptyState text="No reminders added yet." />
                 ) : (
                   <div className="space-y-3">
-                    {reminders.map((reminder) => {
+                    {reminders.map((reminder, index) => {
                       const status = getReminderStatus(reminder);
 
                       return (
                         <div
                           key={reminder.id}
-                          className="rounded-lg border border-zinc-200 bg-zinc-50 p-4"
+                          className={`animate-fade-up rounded-lg border border-zinc-200 bg-zinc-50 p-4 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-sm stagger-${(index % 4) + 1}`}
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div>
@@ -993,7 +996,7 @@ function PanelHeader({ title, subtitle, action, onAction }) {
         <h3 className="text-2xl font-black">{title}</h3>
         <p className="text-sm text-zinc-500">{subtitle}</p>
       </div>
-      <button onClick={onAction} className={secondaryButtonClass}>
+      <button onClick={onAction} className={`${secondaryButtonClass} transition hover:-translate-y-0.5 active:translate-y-0`}>
         {action}
       </button>
     </div>
@@ -1002,7 +1005,7 @@ function PanelHeader({ title, subtitle, action, onAction }) {
 
 function EmptyState({ text }) {
   return (
-    <div className="rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-6 text-sm font-medium text-zinc-500">
+    <div className="animate-scale-in rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-6 text-sm font-medium text-zinc-500">
       {text}
     </div>
   );
@@ -1010,13 +1013,13 @@ function EmptyState({ text }) {
 
 function Modal({ title, onClose, children }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/55 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-lg border border-zinc-200 bg-white p-6 shadow-[0_24px_80px_rgba(24,24,27,0.28)]">
+    <div className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/55 px-4 backdrop-blur-sm">
+      <div className="animate-scale-in w-full max-w-md rounded-lg border border-zinc-200 bg-white p-6 shadow-[0_24px_80px_rgba(24,24,27,0.28)]">
         <div className="mb-5 flex items-center justify-between">
           <h3 className="text-xl font-black">{title}</h3>
           <button
             onClick={onClose}
-            className="grid h-9 w-9 place-items-center rounded-lg border border-zinc-200 text-zinc-500 transition hover:bg-zinc-50"
+            className="grid h-9 w-9 place-items-center rounded-lg border border-zinc-200 text-zinc-500 transition hover:-translate-y-0.5 hover:bg-zinc-50 active:translate-y-0"
             aria-label="Close modal"
           >
             x
@@ -1031,10 +1034,10 @@ function Modal({ title, onClose, children }) {
 function ModalActions({ confirmLabel = "Add", onCancel, onConfirm }) {
   return (
     <div className="grid grid-cols-2 gap-3 pt-2">
-      <button onClick={onCancel} className={secondaryButtonClass}>
+      <button onClick={onCancel} className={`${secondaryButtonClass} transition hover:-translate-y-0.5 active:translate-y-0`}>
         Cancel
       </button>
-      <button onClick={onConfirm} className={primaryButtonClass}>
+      <button onClick={onConfirm} className={`${primaryButtonClass} transition hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0`}>
         {confirmLabel}
       </button>
     </div>

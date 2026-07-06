@@ -42,8 +42,8 @@ export default function Login() {
         <section className="relative hidden overflow-hidden bg-zinc-950 text-white lg:block">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(245,158,11,0.35),transparent_32%),radial-gradient(circle_at_80%_10%,rgba(34,197,94,0.20),transparent_28%)]" />
           <div className="relative flex h-full flex-col justify-between p-12">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-lg bg-amber-400 text-xl font-black text-zinc-950">
+            <div className="animate-fade-up flex items-center gap-3">
+              <div className="animate-soft-float grid h-11 w-11 place-items-center rounded-lg bg-amber-400 text-xl font-black text-zinc-950">
                 C
               </div>
               <div>
@@ -52,7 +52,7 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="max-w-xl">
+            <div className="animate-fade-up stagger-1 max-w-xl">
               <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-amber-100">
                 Services, costs, reminders
               </p>
@@ -66,10 +66,13 @@ export default function Login() {
             </div>
 
             <div className="grid grid-cols-3 gap-4">
-              {["History", "Costs", "Reminders"].map((item) => (
-                <div key={item} className="rounded-lg border border-white/10 bg-white/[0.06] p-4">
+              {["History", "Costs", "Reminders"].map((item, index) => (
+                <div
+                  key={item}
+                  className={`animate-fade-up rounded-lg border border-white/10 bg-white/[0.06] p-4 transition hover:-translate-y-1 hover:bg-white/[0.09] stagger-${index + 1}`}
+                >
                   <p className="text-sm font-semibold text-zinc-200">{item}</p>
-                  <div className="mt-3 h-1.5 rounded-full bg-amber-300" />
+                  <div className="animate-fill-bar mt-3 h-1.5 rounded-full bg-amber-300" />
                 </div>
               ))}
             </div>
@@ -78,12 +81,12 @@ export default function Login() {
 
         <section className="flex items-center justify-center px-5 py-10">
           <div className="w-full max-w-md">
-            <div className="mb-8 lg:hidden">
+            <div className="animate-fade-up mb-8 lg:hidden">
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-amber-700">CarCare</p>
               <h1 className="mt-2 text-4xl font-black">Maintenance cockpit</h1>
             </div>
 
-            <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-[0_24px_70px_rgba(24,24,27,0.12)] sm:p-8">
+            <div className="animate-scale-in rounded-lg border border-zinc-200 bg-white p-6 shadow-[0_24px_70px_rgba(24,24,27,0.12)] sm:p-8">
               <div className="mb-7">
                 <p className="text-sm font-semibold text-amber-700">
                   {isRegister ? "Start tracking today" : "Welcome back"}
@@ -124,7 +127,7 @@ export default function Login() {
 
                 <button
                   disabled={loading}
-                  className="w-full rounded-lg bg-zinc-950 py-3.5 font-bold text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="w-full rounded-lg bg-zinc-950 py-3.5 font-bold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 hover:shadow-lg active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? "Please wait..." : isRegister ? "Create account" : "Login"}
                 </button>
@@ -135,7 +138,7 @@ export default function Login() {
                   setMode(isRegister ? "login" : "register");
                   setMessage("");
                 }}
-                className="mt-5 w-full rounded-lg border border-zinc-200 py-3 text-sm font-bold text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-50"
+                className="mt-5 w-full rounded-lg border border-zinc-200 py-3 text-sm font-bold text-zinc-700 transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-50 active:translate-y-0"
               >
                 {isRegister ? "Already have an account? Login" : "Need an account? Register"}
               </button>
